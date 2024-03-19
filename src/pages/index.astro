@@ -1,8 +1,9 @@
 ---
-
+import {db, Todo} from 'astro:db';
+const todos = await db.select().from(Todo);
 ---
 
-<html lang="en">
+<html lang="ja">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -12,5 +13,36 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+		<ul>
+			{
+				todos.map((todo) => (
+					<li>
+						<form action={`/api/todo/${todo.id}`} method="POST">
+							<input type="checkbox" name="finish" id="" checked={todo.finish}>
+							{todo.title}
+						</form>
+					</li>
+				))
+			}
+		</ul>
+		<hr>
+		<form action="/api/todo" method="POST">
+			<label for="">
+				ToDo:
+				<input type="text" name="title" />
+			</label>
+			<button type="submit">Add</button>
+		</form>
+
+		<script>
+			const updateTriggers = document.querySelectorAll("input[type='checkbox']")
+			updateTriggers.forEach(trigger => {
+				trigger.addEventListener('change', (e) => {
+					const currentTarget = e.currentTarget as HTMLInputElement
+					const targetForm = currentTarget.parentElement as HTMLFormElement
+					targetForm.submit()
+				})
+			})
+			</script>
 	</body>
 </html>
