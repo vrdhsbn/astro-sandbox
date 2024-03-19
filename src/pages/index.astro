@@ -12,7 +12,7 @@ const todos = await db.select().from(Todo);
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Astro DB Demo</h1>
 		<ul>
 			{
 				todos.map((todo) => (
@@ -20,6 +20,7 @@ const todos = await db.select().from(Todo);
 						<form action={`/api/todo/${todo.id}`} method="POST">
 							<input type="checkbox" name="finish" id="" checked={todo.finish}>
 							{todo.title}
+							<a href={`/api/todo/${todo.id}`}>Delete</a>
 						</form>
 					</li>
 				))
