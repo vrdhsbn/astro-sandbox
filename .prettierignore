@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.nuxt/
+build/
+dist/
+out/
+public/
+package.json
+package-lock.json
+yarn.lock

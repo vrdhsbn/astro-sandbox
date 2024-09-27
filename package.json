@@ -1,0 +1,33 @@
+{
+  "name": "astro-sandbox",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "postbuild": "html-beautify 'dist/*.html' 'dist/**/*.html'",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/db": "^0.14.1",
+    "@astrojs/react": "^3.6.2",
+    "@types/react": "^18.3.8",
+    "@types/react-dom": "^18.3.0",
+    "astro": "^4.15.8",
+    "astro-compress": "^2.3.1",
+    "destyle.css": "^4.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.2",
+    "js-beautify": "^1.15.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "sass": "^1.79.3"
+  }
+}

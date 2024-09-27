@@ -1,0 +1,40 @@
+---
+import { actions } from 'astro:actions'
+import { Subscriber, db } from 'astro:db'
+import Layout from '@/layouts/Layout.astro'
+
+const result = Astro.getActionResult(actions.subscribe)
+
+const subscribers = await db.select().from(Subscriber)
+---
+
+<Layout title="購読者一覧">
+  {result && !result.error && <p>"{result.data}" is registered. Thanks for signing up!</p>}
+
+  <form method="post" action={actions.subscribe}>
+    <input type="email" name="email" />
+    <button>Sign up</button>
+  </form>
+
+  <hr />
+
+  <h1>List of subscribers</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        subscribers.map(({ id, email }) => (
+          <tr>
+            <td>{id}</td>
+            <td>{email}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</Layout>

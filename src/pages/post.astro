@@ -1,0 +1,39 @@
+---
+import { actions } from 'astro:actions'
+import { Posts, db } from 'astro:db'
+import Layout from '@/layouts/Layout.astro'
+
+const posts = await db.select().from(Posts)
+---
+
+<Layout title="ポスト一覧">
+  <h1>Posts</h1>
+  {
+    posts.map(({ id, author, content, like }) => (
+      <div class="post-container">
+        <p>{author}</p>
+        <p>{content}</p>
+        <p>{like}</p>
+        <form action={actions.addLike} method="post">
+          <input type="hidden" name="id" value={id} />
+          <button>いいね！</button>
+        </form>
+      </div>
+    ))
+  }
+</Layout>
+
+<style lang="scss">
+  p:first-of-type {
+    margin-top: 0;
+  }
+
+  .post-container {
+    padding: 8px 0;
+    border-top: 1px solid #ccc;
+
+    &:last-of-type {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+</style>
